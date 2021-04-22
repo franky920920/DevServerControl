@@ -1,0 +1,10 @@
+C:\Users\frank\source\repos\DevServerControl\DevServerControl\bin\Release\DevServerControl.exe.config
+C:\Users\frank\source\repos\DevServerControl\DevServerControl\bin\Release\DevServerControl.exe
+C:\Users\frank\source\repos\DevServerControl\DevServerControl\bin\Release\DevServerControl.pdb
+C:\Users\frank\source\repos\DevServerControl\DevServerControl\obj\Release\DevServerControl.Form1.resources
+C:\Users\frank\source\repos\DevServerControl\DevServerControl\obj\Release\DevServerControl.Properties.Resources.resources
+C:\Users\frank\source\repos\DevServerControl\DevServerControl\obj\Release\DevServerControl.csproj.GenerateResource.cache
+C:\Users\frank\source\repos\DevServerControl\DevServerControl\obj\Release\DevServerControl.csproj.CoreCompileInputs.cache
+C:\Users\frank\source\repos\DevServerControl\DevServerControl\obj\Release\DevServerControl.exe
+C:\Users\frank\source\repos\DevServerControl\DevServerControl\obj\Release\DevServerControl.pdb
+C:\Users\frank\source\repos\DevServerControl\DevServerControl\obj\Release\DevServerControl.csprojAssemblyReference.cache
