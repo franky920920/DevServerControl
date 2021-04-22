@@ -1,4 +1,6 @@
-﻿namespace DevServerControl
+﻿using System.Windows.Forms;
+
+namespace DevServerControl
 {
     partial class Form1
     {
@@ -34,11 +36,13 @@
             this.label1 = new System.Windows.Forms.Label();
             this.chk_port_443 = new System.Windows.Forms.Button();
             this.lbl_apache = new System.Windows.Forms.Label();
-            this.btn_apache_toggle = new System.Windows.Forms.Button();
+            Form1.btn_apache_toggle = new System.Windows.Forms.Button();
             this.btn_apache_restart = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             Form1.tbx_log = new System.Windows.Forms.RichTextBox();
+            this.btn_apache_vhost = new System.Windows.Forms.Button();
+            this.btn_hosts = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // chk_port_80
@@ -46,11 +50,10 @@
             this.chk_port_80.Font = new System.Drawing.Font("Arial Narrow", 12F);
             this.chk_port_80.Location = new System.Drawing.Point(69, 103);
             this.chk_port_80.Name = "chk_port_80";
-            this.chk_port_80.Size = new System.Drawing.Size(81, 27);
+            this.chk_port_80.Size = new System.Drawing.Size(47, 27);
             this.chk_port_80.TabIndex = 1;
             this.chk_port_80.Text = "80";
             this.chk_port_80.UseVisualStyleBackColor = true;
-            this.chk_port_80.Click += new System.EventHandler(this.chk_port_80_Click);
             // 
             // label1
             // 
@@ -65,13 +68,12 @@
             // chk_port_443
             // 
             this.chk_port_443.Font = new System.Drawing.Font("Arial Narrow", 12F);
-            this.chk_port_443.Location = new System.Drawing.Point(156, 103);
+            this.chk_port_443.Location = new System.Drawing.Point(122, 103);
             this.chk_port_443.Name = "chk_port_443";
-            this.chk_port_443.Size = new System.Drawing.Size(81, 27);
+            this.chk_port_443.Size = new System.Drawing.Size(47, 27);
             this.chk_port_443.TabIndex = 3;
             this.chk_port_443.Text = "443";
             this.chk_port_443.UseVisualStyleBackColor = true;
-            this.chk_port_443.Click += new System.EventHandler(this.chk_port_443_Click);
             // 
             // lbl_apache
             // 
@@ -85,14 +87,13 @@
             // 
             // btn_apache_toggle
             // 
-            this.btn_apache_toggle.Font = new System.Drawing.Font("Arial Narrow", 12F);
-            this.btn_apache_toggle.Location = new System.Drawing.Point(69, 9);
-            this.btn_apache_toggle.Name = "btn_apache_toggle";
-            this.btn_apache_toggle.Size = new System.Drawing.Size(81, 27);
-            this.btn_apache_toggle.TabIndex = 6;
-            this.btn_apache_toggle.Text = "start";
-            this.btn_apache_toggle.UseVisualStyleBackColor = true;
-            this.btn_apache_toggle.Click += new System.EventHandler(this.btn_apache_toggle_Click);
+            Form1.btn_apache_toggle.Font = new System.Drawing.Font("Arial Narrow", 12F);
+            Form1.btn_apache_toggle.Location = new System.Drawing.Point(69, 9);
+            Form1.btn_apache_toggle.Name = "btn_apache_toggle";
+            Form1.btn_apache_toggle.Size = new System.Drawing.Size(81, 27);
+            Form1.btn_apache_toggle.TabIndex = 6;
+            Form1.btn_apache_toggle.Text = "start";
+            Form1.btn_apache_toggle.UseVisualStyleBackColor = true;
             // 
             // btn_apache_restart
             // 
@@ -103,7 +104,6 @@
             this.btn_apache_restart.TabIndex = 7;
             this.btn_apache_restart.Text = "restart";
             this.btn_apache_restart.UseVisualStyleBackColor = true;
-            this.btn_apache_restart.Click += new System.EventHandler(this.btn_apache_restart_Click);
             // 
             // label2
             // 
@@ -117,11 +117,33 @@
             // 
             // notifyIcon1
             // 
-            this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
+            this.notifyIcon1.Icon = ((System.Drawing.Icon) (resources.GetObject("notifyIcon1.Icon")));
             this.notifyIcon1.Text = "WAMP manger";
             this.notifyIcon1.Visible = true;
             this.notifyIcon1.DoubleClick += new System.EventHandler(this.notifyIcon1_DoubleClick);
             // 
+            // btn_apache_vhost
+            // 
+            this.btn_apache_vhost.Font = new System.Drawing.Font("Arial Narrow", 12F);
+            this.btn_apache_vhost.Location = new System.Drawing.Point(243, 9);
+            this.btn_apache_vhost.Name = "btn_apache_vhost";
+            this.btn_apache_vhost.Size = new System.Drawing.Size(81, 27);
+            this.btn_apache_vhost.TabIndex = 10;
+            this.btn_apache_vhost.Text = "vhost";
+            this.btn_apache_vhost.UseVisualStyleBackColor = true;
+            this.btn_apache_vhost.Click += new System.EventHandler(this.btn_apache_vhost_Click);
+            // 
+            // btn_hosts
+            // 
+            this.btn_hosts.Font = new System.Drawing.Font("Arial Narrow", 12F);
+            this.btn_hosts.Location = new System.Drawing.Point(243, 103);
+            this.btn_hosts.Name = "btn_hosts";
+            this.btn_hosts.Size = new System.Drawing.Size(81, 27);
+            this.btn_hosts.TabIndex = 12;
+            this.btn_hosts.Text = "hosts";
+            this.btn_hosts.UseVisualStyleBackColor = true;
+            this.btn_hosts.Click += new System.EventHandler(this.btn_hosts_Click);
+             // 
             // tbx_log
             // 
             Form1.tbx_log.Location = new System.Drawing.Point(12, 149);
@@ -136,9 +158,11 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(579, 418);
             this.Controls.Add(Form1.tbx_log);
+            this.Controls.Add(this.btn_hosts);
+            this.Controls.Add(this.btn_apache_vhost);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.btn_apache_restart);
-            this.Controls.Add(this.btn_apache_toggle);
+            this.Controls.Add(Form1.btn_apache_toggle);
             this.Controls.Add(this.lbl_apache);
             this.Controls.Add(this.chk_port_443);
             this.Controls.Add(this.label1);
@@ -149,19 +173,22 @@
             this.SizeChanged += new System.EventHandler(this.Form1_SizeChanged);
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
+
+        private System.Windows.Forms.Button btn_hosts;
+        
+        private System.Windows.Forms.Button btn_apache_vhost;
 
         #endregion
         private System.Windows.Forms.Button chk_port_80;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button chk_port_443;
         private System.Windows.Forms.Label lbl_apache;
-        private System.Windows.Forms.Button btn_apache_toggle;
+        public static System.Windows.Forms.Button btn_apache_toggle;
         private System.Windows.Forms.Button btn_apache_restart;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.NotifyIcon notifyIcon1;
-        private static System.Windows.Forms.RichTextBox tbx_log;
+        public static System.Windows.Forms.RichTextBox tbx_log;
     }
 }
 

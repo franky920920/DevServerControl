@@ -13,7 +13,7 @@ namespace DevServerControl
     public partial class Form1 : Form
     {
         // ReSharper disable once FieldCanBeMadeReadOnly.Local
-        private Dictionary<string, string> _serviceStatus = new Dictionary<string, string>();
+        public static Dictionary<string, string> ServiceStatus = new Dictionary<string, string>();
 
         // ReSharper disable once MemberCanBePrivate.Global
         public static string WampPath = "C:\\wamp64\\";
@@ -22,11 +22,16 @@ namespace DevServerControl
         // ReSharper disable once FieldCanBeMadeReadOnly.Global
         public List<string> PhpVersions = new List<string>();
 
+        // ReSharper disable once FieldCanBeMadeReadOnly.Global
+        public static List<string> ApacheVersions = new List<string>();
+
+        //Form1
         public Form1()
         {
             InitializeComponent();
         }
 
+        //Form1 onload
         private void Form1_Load(object sender, EventArgs e)
         {
             // Readonly: tbx_log
@@ -52,6 +57,18 @@ namespace DevServerControl
             WindowState = FormWindowState.Normal;
 
             AppendText(tbx_log, $"Wamp install set to {WampPath}", 10, Color.DarkGreen, true);
+
+            //Fetch installed apache versions
+            AppendText(tbx_log, "Detected Apache versions:", 10, Color.Black, false);
+            foreach (
+                var apacheVersionPath
+                in Directory.GetDirectories(WampPath + "bin\\apache"))
+            {
+                var version = apacheVersionPath
+                    .Split('e').Last();
+                ApacheVersions.Add(version);
+                AppendText(tbx_log, version, 10, Color.Black, false);
+            }
 
             //Fetch installed php versions
             AppendText(tbx_log, "Detected PHP versions:", 10, Color.Black, false);
@@ -86,37 +103,35 @@ namespace DevServerControl
             }
 
             //Get apache status
-            RefreshServiceStatus("apache");
-            btn_apache_toggle.Text = _serviceStatus["apache"] == "running" ? "stop" : "start";
-            AppendText(tbx_log, $"Apache2 is {_serviceStatus["apache"]}", 10, Color.Brown, true);
+            Apache.RefreshStatus();
+            btn_apache_toggle.Text = ServiceStatus["apache"] == "running" ? "stop" : "start";
+            AppendText(tbx_log, $"Apache2 is {ServiceStatus["apache"]}", 10, Color.Brown, true);
+
+            //Set onclick event for Apache toggle button
+            btn_apache_toggle.Click += (o, args) =>
+            {
+                Apache.RefreshStatus();
+                if (ServiceStatus["apache"] == "running")
+                {
+                    Apache.Stop();
+                }
+                else
+                {
+                    Apache.Start();
+                }
+
+                Apache.RefreshStatus();
+            };
+
+            //Set onclick event for Apache restart button
+            btn_apache_restart.Click += (o, args) => Apache.Restart();
+
+            //Set onclick event for check port
+            chk_port_80.Click += (o, args) => check_port(80);
+            chk_port_443.Click += (o, args) => check_port(443);
 
             //Hide tray icon
             notifyIcon1.Visible = false;
-        }
-
-        private void chk_port_80_Click(object sender, EventArgs e)
-        {
-            check_port(80);
-        }
-
-        private void chk_port_443_Click(object sender, EventArgs e)
-        {
-            check_port(443);
-        }
-
-        private void btn_apache_toggle_Click(object sender, EventArgs e)
-        {
-            RefreshServiceStatus("apache");
-            if (_serviceStatus["apache"] == "running")
-            {
-                apache_stop();
-            }
-            else
-            {
-                apache_start();
-            }
-
-            RefreshServiceStatus("apache");
         }
 
         // ReSharper disable once MemberCanBePrivate.Global
@@ -136,7 +151,7 @@ namespace DevServerControl
             textBox.ScrollToCaret();
         }
 
-        private static void check_port(int port)
+        private void check_port(int port)
         {
             var ipProperties = IPGlobalProperties.GetIPGlobalProperties();
             var ipEndPoints = ipProperties.GetActiveTcpListeners();
@@ -184,47 +199,7 @@ namespace DevServerControl
             }
         }
 
-        private void RefreshServiceStatus(string service)
-        {
-            ServiceController sc;
-            switch (service)
-            {
-                case "apache":
-                    sc = new ServiceController("wampapache64");
-                    break;
-                default:
-                    return;
-            }
-
-            switch (sc.Status)
-            {
-                case ServiceControllerStatus.Running:
-                    _serviceStatus[service] = "running";
-                    break;
-                case ServiceControllerStatus.Stopped:
-                    _serviceStatus[service] = "stopped";
-                    break;
-                case ServiceControllerStatus.Paused:
-                    _serviceStatus[service] = "paused";
-                    break;
-                case ServiceControllerStatus.StartPending:
-                    _serviceStatus[service] = "startPending";
-                    break;
-                case ServiceControllerStatus.StopPending:
-                    _serviceStatus[service] = "stopPending";
-                    break;
-                case ServiceControllerStatus.ContinuePending:
-                    _serviceStatus[service] = "continuePending";
-                    break;
-                case ServiceControllerStatus.PausePending:
-                    _serviceStatus[service] = "pausePending";
-                    break;
-                default:
-                    _serviceStatus[service] = "changing";
-                    break;
-            }
-        }
-
+        //PHP
         private void SwitchPhpVersion(string version)
         {
             AppendText(tbx_log, $"Switching to PHP {version}...", 10, Color.Black, false);
@@ -240,74 +215,7 @@ namespace DevServerControl
             };
             cmd.Start();
             cmd.WaitForExit();
-            apache_restart();
-        }
-
-        private void apache_restart()
-        {
-            if (_serviceStatus["apache"] == "running")
-            {
-                apache_stop();
-            }
-
-            apache_start();
-        }
-
-        private void apache_stop()
-        {
-            var apacheSc = new ServiceController("wampapache64");
-            if (apacheSc.Status != ServiceControllerStatus.Stopped)
-            {
-                AppendText(tbx_log, "Stopping apache service...", 10, Color.Gray, false);
-                apacheSc.Stop();
-                apacheSc.WaitForStatus(ServiceControllerStatus.Stopped);
-                AppendText(tbx_log, "Service apache stopped", 10, Color.Black, false);
-                btn_apache_toggle.Text = @"start";
-            }
-            else
-            {
-                AppendText(tbx_log, "Service apache is already stopped!", 10, Color.DarkRed, false);
-            }
-
-            RefreshServiceStatus("apache");
-        }
-
-        private void apache_start()
-        {
-            var apacheSc = new ServiceController("wampapache64");
-            if (apacheSc.Status != ServiceControllerStatus.Running)
-            {
-                AppendText(tbx_log, "Starting apache service...", 10, Color.Gray, false);
-                apacheSc.Start();
-                apacheSc.WaitForStatus(ServiceControllerStatus.Running);
-                AppendText(tbx_log, "Service apache started", 10, Color.Black, false);
-                btn_apache_toggle.Text = @"stop";
-            }
-            else
-            {
-                AppendText(tbx_log, "Service apache is already running!", 10, Color.DarkRed, false);
-            }
-
-            RefreshServiceStatus("apache");
-        }
-
-        private void btn_apache_restart_Click(object sender, EventArgs e)
-        {
-            apache_restart();
-        }
-
-        private void Form1_SizeChanged(object sender, EventArgs e)
-        {
-            if (WindowState != FormWindowState.Minimized) return;
-            Hide();
-            notifyIcon1.Visible = true;
-        }
-
-        private void notifyIcon1_DoubleClick(object sender, EventArgs e)
-        {
-            Show();
-            WindowState = FormWindowState.Normal;
-            notifyIcon1.Visible = false;
+            Apache.Restart();
         }
 
         //@return PID of process
@@ -328,6 +236,32 @@ namespace DevServerControl
 
             _processName = string.Empty;
             _processPid = string.Empty;
+        }
+
+        //----------------------- Event handlers --------------------------
+        private void notifyIcon1_DoubleClick(object sender, EventArgs e)
+        {
+            Show();
+            WindowState = FormWindowState.Normal;
+            notifyIcon1.Visible = false;
+        }
+
+        private void Form1_SizeChanged(object sender, EventArgs e)
+        {
+            if (WindowState != FormWindowState.Minimized) return;
+            Hide();
+            notifyIcon1.Visible = true;
+        }
+
+        private void btn_apache_vhost_Click(object sender, EventArgs e)
+        {
+            var virtualHost = new VirtualHost();
+            virtualHost.Show();
+        }
+
+        private void btn_hosts_Click(object sender, EventArgs e)
+        {
+            
         }
     }
 }

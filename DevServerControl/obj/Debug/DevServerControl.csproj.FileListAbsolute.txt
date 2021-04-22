@@ -18,3 +18,5 @@ C:\Projects\wamp_control\DevServerControl\obj\Debug\DevServerControl.csproj.Gene
 C:\Projects\wamp_control\DevServerControl\obj\Debug\DevServerControl.csproj.CoreCompileInputs.cache
 C:\Projects\wamp_control\DevServerControl\obj\Debug\DevServerControl.exe
 C:\Projects\wamp_control\DevServerControl\obj\Debug\DevServerControl.pdb
+C:\Projects\wamp_control\DevServerControl\obj\Debug\DevServerControl.VirtualHost.resources
+C:\Projects\wamp_control\DevServerControl\obj\Debug\DevServerControl.HostFile.resources
