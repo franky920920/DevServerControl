@@ -20,3 +20,15 @@ C:\Projects\wamp_control\DevServerControl\obj\Debug\DevServerControl.exe
 C:\Projects\wamp_control\DevServerControl\obj\Debug\DevServerControl.pdb
 C:\Projects\wamp_control\DevServerControl\obj\Debug\DevServerControl.VirtualHost.resources
 C:\Projects\wamp_control\DevServerControl\obj\Debug\DevServerControl.HostFile.resources
+P:\wamp_control\DevServerControl\bin\Debug\DevServerControl.exe.config
+P:\wamp_control\DevServerControl\bin\Debug\DevServerControl.exe
+P:\wamp_control\DevServerControl\bin\Debug\DevServerControl.pdb
+P:\wamp_control\DevServerControl\obj\Debug\DevServerControl.csprojAssemblyReference.cache
+P:\wamp_control\DevServerControl\obj\Debug\DevServerControl.Form1.resources
+P:\wamp_control\DevServerControl\obj\Debug\DevServerControl.HostFile.resources
+P:\wamp_control\DevServerControl\obj\Debug\DevServerControl.Properties.Resources.resources
+P:\wamp_control\DevServerControl\obj\Debug\DevServerControl.VirtualHost.resources
+P:\wamp_control\DevServerControl\obj\Debug\DevServerControl.csproj.GenerateResource.cache
+P:\wamp_control\DevServerControl\obj\Debug\DevServerControl.csproj.CoreCompileInputs.cache
+P:\wamp_control\DevServerControl\obj\Debug\DevServerControl.exe
+P:\wamp_control\DevServerControl\obj\Debug\DevServerControl.pdb

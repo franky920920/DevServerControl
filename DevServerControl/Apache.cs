@@ -2,23 +2,33 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.ServiceProcess;
+using System.Threading.Tasks;
 
 namespace DevServerControl
 {
     public static class Apache
     {
+        public static List<string> Versions = new List<string>();
+        
         // ReSharper disable once FieldCanBeMadeReadOnly.Local
         private static ServiceController _sc = new ServiceController("wampapache64");
 
-        public static void Start()
+        public static async Task Start()
         {
             if (_sc.Status != ServiceControllerStatus.Running)
             {
-                Form1.AppendText(Form1.tbx_log, "Starting apache service...", 10, Color.Gray, false);
-                _sc.Start();
-                _sc.WaitForStatus(ServiceControllerStatus.Running);
-                Form1.AppendText(Form1.tbx_log, "Service apache started", 10, Color.Black, false);
-                Form1.btn_apache_toggle.Text = @"stop";
+                try
+                {
+                    Form1.AppendText(Form1.tbx_log, "Starting apache service...", 10, Color.Gray, false);
+                    _sc.Start();
+                    await _sc.WaitForStatusAsync(ServiceControllerStatus.Running, new TimeSpan(0,0,0,20));
+                    Form1.AppendText(Form1.tbx_log, "Service apache started", 10, Color.Black, false);
+                    Form1.btn_apache_toggle.Text = @"stop";
+                }
+                catch (Exception exception)
+                {
+                    Form1.AppendText(Form1.tbx_log, $"Failed to start apache service: {exception}", 10, Color.DarkRed, true);
+                }
             }
             else
             {
@@ -28,15 +38,22 @@ namespace DevServerControl
             RefreshStatus();
         }
 
-        public static void Stop()
+        public static async void Stop()
         {
             if (_sc.Status != ServiceControllerStatus.Stopped)
             {
-                Form1.AppendText(Form1.tbx_log, "Stopping apache service...", 10, Color.Gray, false);
-                _sc.Stop();
-                _sc.WaitForStatus(ServiceControllerStatus.Stopped);
-                Form1.AppendText(Form1.tbx_log, "Service apache stopped", 10, Color.Black, false);
-                Form1.btn_apache_toggle.Text = @"start";
+                try
+                {
+                    Form1.AppendText(Form1.tbx_log, "Stopping apache service...", 10, Color.Gray, false);
+                    _sc.Stop();
+                    await _sc.WaitForStatusAsync(ServiceControllerStatus.Stopped, new TimeSpan(0,0,0,20));
+                    Form1.AppendText(Form1.tbx_log, "Service apache stopped", 10, Color.Black, false);
+                    Form1.btn_apache_toggle.Text = @"start";
+                }
+                catch (Exception exception)
+                {
+                    Form1.AppendText(Form1.tbx_log, $"Failed to stop apache service: {exception}", 10, Color.DarkRed, true);
+                }
             }
             else
             {
@@ -46,14 +63,14 @@ namespace DevServerControl
             RefreshStatus();
         }
 
-        public static void Restart()
+        public static async void Restart()
         {
             if (Form1.ServiceStatus["apache"] == "running")
             {
                 Stop();
             }
 
-            Start();
+            await Start();
         }
 
         public static void RefreshStatus()

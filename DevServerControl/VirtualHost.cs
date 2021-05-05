@@ -25,7 +25,7 @@ namespace DevServerControl
             //TODO: support multiple apache versions. 
             var configReader = new StreamReader(
                 Form1.WampPath +
-                $"bin\\apache\\apache{Form1.ApacheVersions[0]}\\conf\\extra\\httpd-vhosts.conf"
+                $"bin\\apache\\apache{Apache.Versions[0]}\\conf\\extra\\httpd-vhosts.conf"
             );
             var configContent = configReader.ReadToEnd();
             configReader.Close();
@@ -114,6 +114,7 @@ namespace DevServerControl
             //Show dialog
             serverRootPathSelector.ShowDialog();
             tbx_srv_root.Text = serverRootPathSelector.SelectedPath;
+
             //Apache config reader only recognize / but not \, replacing it.
             VhostConfig[listBox_hosts.SelectedItem.ToString().Split(':')[0]]["DocumentRoot"] =
                 serverRootPathSelector.SelectedPath.Replace('\\', '/');
@@ -173,7 +174,7 @@ namespace DevServerControl
             try
             {
                 File.WriteAllText(
-                    Form1.WampPath + $"bin\\apache\\apache{Form1.ApacheVersions[0]}\\conf\\extra\\httpd-vhosts.conf",
+                    Form1.WampPath + $"bin\\apache\\apache{Apache.Versions[0]}\\conf\\extra\\httpd-vhosts.conf",
                     config
                 );
                 Form1.AppendText(Form1.tbx_log, "Vhost configuration written", 10, Color.Black, false);
