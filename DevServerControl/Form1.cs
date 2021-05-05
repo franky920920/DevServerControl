@@ -5,7 +5,6 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net.NetworkInformation;
-using System.ServiceProcess;
 using System.Windows.Forms;
 
 namespace DevServerControl
@@ -18,12 +17,7 @@ namespace DevServerControl
         // ReSharper disable once MemberCanBePrivate.Global
         public static string WampPath = "C:\\wamp64\\";
 
-        // ReSharper disable once MemberCanBePrivate.Global
         // ReSharper disable once FieldCanBeMadeReadOnly.Global
-        public List<string> PhpVersions = new List<string>();
-
-        // ReSharper disable once FieldCanBeMadeReadOnly.Global
-        public static List<string> ApacheVersions = new List<string>();
 
         //Form1
         public Form1()
@@ -66,7 +60,7 @@ namespace DevServerControl
             {
                 var version = apacheVersionPath
                     .Split('e').Last();
-                ApacheVersions.Add(version);
+                Apache.Versions.Add(version);
                 AppendText(tbx_log, version, 10, Color.Black, false);
             }
 
@@ -76,13 +70,13 @@ namespace DevServerControl
             {
                 var version = phpVersionPath
                     .Split('p').Last();
-                PhpVersions.Add(version);
+                Php.Versions.Add(version);
                 AppendText(tbx_log, version, 10, Color.Black, false);
             }
 
             //Print fetched php versions to buttons
             var phpVersionButtons = new Dictionary<string, Button>();
-            var phpVersionsDictionary = PhpVersions.Select(
+            var phpVersionsDictionary = Php.Versions.Select(
                 (s, i) => new {s, i}
             ).ToDictionary(
                 x => x.i,
@@ -98,7 +92,7 @@ namespace DevServerControl
                     Name = "switchPhpVersion_" + version.Value,
                     Font = new Font("Arial", 9),
                 };
-                phpVersionButtons[version.Value].Click += (o, args) => { SwitchPhpVersion(version.Value); };
+                phpVersionButtons[version.Value].Click += (o, args) => { Php.SwitchVersion(version.Value); };
                 Controls.Add(phpVersionButtons[version.Value]);
             }
 
@@ -210,7 +204,7 @@ namespace DevServerControl
                     WindowStyle = ProcessWindowStyle.Hidden,
                     FileName = "cmd",
                     Arguments =
-                        $"/C {WampPath}bin\\php\\php{PhpVersions[0]}\\php.exe {WampPath}scripts\\switchPhpVersion.php {version}"
+                        $"/C {WampPath}bin\\php\\php{Php.Versions[0]}\\php.exe {WampPath}scripts\\switchPhpVersion.php {version}"
                 }
             };
             cmd.Start();
@@ -261,7 +255,8 @@ namespace DevServerControl
 
         private void btn_hosts_Click(object sender, EventArgs e)
         {
-            
+            var hostFile = new HostFile();
+            hostFile.Show();
         }
     }
 }
