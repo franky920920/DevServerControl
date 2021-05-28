@@ -43,6 +43,8 @@ namespace DevServerControl
             Form1.tbx_log = new System.Windows.Forms.RichTextBox();
             this.btn_apache_vhost = new System.Windows.Forms.Button();
             this.btn_hosts = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.btn_dynamodb_toggle = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // chk_port_80
@@ -143,14 +145,35 @@ namespace DevServerControl
             this.btn_hosts.Text = "hosts";
             this.btn_hosts.UseVisualStyleBackColor = true;
             this.btn_hosts.Click += new System.EventHandler(this.btn_hosts_Click);
-             // 
+            // 
             // tbx_log
             // 
-            Form1.tbx_log.Location = new System.Drawing.Point(12, 149);
+            Form1.tbx_log.Location = new System.Drawing.Point(12, 179);
             Form1.tbx_log.Name = "tbx_log";
-            Form1.tbx_log.Size = new System.Drawing.Size(555, 257);
+            Form1.tbx_log.Size = new System.Drawing.Size(555, 227);
             Form1.tbx_log.TabIndex = 9;
             Form1.tbx_log.Text = "";
+            //
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Arial Narrow", 12F);
+            this.label3.Location = new System.Drawing.Point(8, 145);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(76, 20);
+            this.label3.TabIndex = 13;
+            this.label3.Text = "DynamoDB";
+            // 
+            // btn_dynamodb_toggle
+            // 
+            this.btn_dynamodb_toggle.Font = new System.Drawing.Font("Arial Narrow", 12F);
+            this.btn_dynamodb_toggle.Location = new System.Drawing.Point(122, 142);
+            this.btn_dynamodb_toggle.Name = "btn_dynamodb_toggle";
+            this.btn_dynamodb_toggle.Size = new System.Drawing.Size(81, 27);
+            this.btn_dynamodb_toggle.TabIndex = 14;
+            this.btn_dynamodb_toggle.Text = "start";
+            this.btn_dynamodb_toggle.UseVisualStyleBackColor = true;
+            this.btn_dynamodb_toggle.Click += new System.EventHandler(this.btn_dynamodb_toggle_Click);
             // 
             // Form1
             // 
@@ -158,6 +181,8 @@ namespace DevServerControl
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(579, 418);
             this.Controls.Add(Form1.tbx_log);
+            this.Controls.Add(this.btn_dynamodb_toggle);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.btn_hosts);
             this.Controls.Add(this.btn_apache_vhost);
             this.Controls.Add(this.label2);
@@ -174,6 +199,10 @@ namespace DevServerControl
             this.ResumeLayout(false);
             this.PerformLayout();
         }
+
+        private System.Windows.Forms.Button btn_dynamodb_toggle;
+
+        private System.Windows.Forms.Label label3;
 
         private System.Windows.Forms.Button btn_hosts;
         

@@ -11,7 +11,7 @@ namespace DevServerControl
 {
     public partial class Form1 : Form
     {
-        // ReSharper disable once FieldCanBeMadeReadOnly.Local
+        // ReSharper disable once FieldCanBeMadeReadOnly.Global
         public static Dictionary<string, string> ServiceStatus = new Dictionary<string, string>();
 
         // ReSharper disable once MemberCanBePrivate.Global
@@ -51,6 +51,26 @@ namespace DevServerControl
             WindowState = FormWindowState.Normal;
 
             AppendText(tbx_log, $"Wamp install set to {WampPath}", 10, Color.DarkGreen, true);
+
+            //Verify dynamodb install
+            if (!Directory.Exists(Dynamodb.path))
+            {
+                MessageBox.Show(
+                    $@"Do not detected the DynamoDB installation, Config your install path at next window. (current: {Dynamodb.path})",
+                    @"Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+                var dynamodbPathSelector = new FolderBrowserDialog();
+                dynamodbPathSelector.ShowDialog();
+                Dynamodb.path = dynamodbPathSelector.SelectedPath + "\\";
+            }
+            else
+            {
+                AppendText(tbx_log, $"DynamoDB install detected {Dynamodb.path}", 10, Color.DarkGreen, true);
+            }
+            
+            AppendText(tbx_log, $"DynamoDB install set to {WampPath}", 10, Color.DarkGreen, true);
 
             //Fetch installed apache versions
             AppendText(tbx_log, "Detected Apache versions:", 10, Color.Black, false);
@@ -193,25 +213,6 @@ namespace DevServerControl
             }
         }
 
-        //PHP
-        private void SwitchPhpVersion(string version)
-        {
-            AppendText(tbx_log, $"Switching to PHP {version}...", 10, Color.Black, false);
-            var cmd = new Process
-            {
-                StartInfo =
-                {
-                    WindowStyle = ProcessWindowStyle.Hidden,
-                    FileName = "cmd",
-                    Arguments =
-                        $"/C {WampPath}bin\\php\\php{Php.Versions[0]}\\php.exe {WampPath}scripts\\switchPhpVersion.php {version}"
-                }
-            };
-            cmd.Start();
-            cmd.WaitForExit();
-            Apache.Restart();
-        }
-
         //@return PID of process
         private static string _processPid;
         private static string _processName;
@@ -257,6 +258,20 @@ namespace DevServerControl
         {
             var hostFile = new HostFile();
             hostFile.Show();
+        }
+
+        private void btn_dynamodb_toggle_Click(object sender, EventArgs e)
+        {
+            if (Dynamodb.status == "stopped")
+            {
+                Dynamodb.Start();
+                btn_dynamodb_toggle.Text = @"Stop";
+            }
+            else
+            {
+                Dynamodb.Stop();
+                btn_dynamodb_toggle.Text = @"Start";
+            }
         }
     }
 }

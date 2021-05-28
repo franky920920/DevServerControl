@@ -96,6 +96,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Apache.cs" />
+    <Compile Include="Dynamodb.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
