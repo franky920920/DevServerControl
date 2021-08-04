@@ -154,7 +154,7 @@ namespace DevServerControl
             textBox.SelectionColor = Color.LightGray;
             textBox.SelectionFont =
                 new Font("Arial", fontSize, FontStyle.Regular);
-            textBox.AppendText(DateTime.Now.ToString("HH:mm:ss tt \t"));
+            textBox.AppendText(DateTime.Now.ToString("[HH:mm:ss tt] \t"));
             textBox.SelectionColor = fontColor;
             textBox.SelectionFont =
                 new Font("Arial", fontSize, bold ? FontStyle.Bold : FontStyle.Regular);
