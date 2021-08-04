@@ -5,6 +5,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net.NetworkInformation;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace DevServerControl
@@ -69,7 +70,7 @@ namespace DevServerControl
             {
                 AppendText(tbx_log, $"DynamoDB install detected {Dynamodb.path}", 10, Color.DarkGreen, true);
             }
-            
+
             AppendText(tbx_log, $"DynamoDB install set to {WampPath}", 10, Color.DarkGreen, true);
 
             //Fetch installed apache versions
@@ -97,7 +98,7 @@ namespace DevServerControl
             //Print fetched php versions to buttons
             var phpVersionButtons = new Dictionary<string, Button>();
             var phpVersionsDictionary = Php.Versions.Select(
-                (s, i) => new {s, i}
+                (s, i) => new { s, i }
             ).ToDictionary(
                 x => x.i,
                 x => x.s
@@ -141,8 +142,16 @@ namespace DevServerControl
             btn_apache_restart.Click += (o, args) => Apache.Restart();
 
             //Set onclick event for check port
-            chk_port_80.Click += (o, args) => check_port(80);
-            chk_port_443.Click += (o, args) => check_port(443);
+            chk_port_80.Click += async (o, args) =>
+            {
+                await Task.Run(() => check_port(80));
+                await Task.Yield();
+            };
+            chk_port_443.Click += async (o, args) =>
+            {
+                await Task.Run(() => check_port(443));
+                await Task.Yield();
+            };
 
             //Hide tray icon
             notifyIcon1.Visible = false;
@@ -151,22 +160,27 @@ namespace DevServerControl
         // ReSharper disable once MemberCanBePrivate.Global
         public static void AppendText(RichTextBox textBox, string str, int fontSize, Color fontColor, bool bold)
         {
-            textBox.SelectionColor = Color.LightGray;
-            textBox.SelectionFont =
-                new Font("Arial", fontSize, FontStyle.Regular);
-            textBox.AppendText(DateTime.Now.ToString("[HH:mm:ss tt] \t"));
-            textBox.SelectionColor = fontColor;
-            textBox.SelectionFont =
-                new Font("Arial", fontSize, bold ? FontStyle.Bold : FontStyle.Regular);
-            textBox.AppendText(str + "\r\n");
+            // Invoking to prevent form exception
+            tbx_log.Invoke((Action)delegate
+            {
+                textBox.SelectionColor = Color.LightGray;
+                textBox.SelectionFont =
+                    new Font("Arial", fontSize, FontStyle.Regular);
+                textBox.AppendText(DateTime.Now.ToString("[HH:mm:ss tt] \t"));
+                textBox.SelectionColor = fontColor;
+                textBox.SelectionFont =
+                    new Font("Arial", fontSize, bold ? FontStyle.Bold : FontStyle.Regular);
+                textBox.AppendText(str + "\r\n");
 
-            // scroll it automatically
-            textBox.SelectionStart = textBox.Text.Length;
-            textBox.ScrollToCaret();
+                // scroll it automatically
+                textBox.SelectionStart = textBox.Text.Length;
+                textBox.ScrollToCaret();
+            });
         }
 
-        private void check_port(int port)
+        private async Task check_port(int port)
         {
+            AppendText(tbx_log, $"Now checking port {port}, please wait...", 10, Color.LightGray, false);
             var ipProperties = IPGlobalProperties.GetIPGlobalProperties();
             var ipEndPoints = ipProperties.GetActiveTcpListeners();
 
@@ -209,7 +223,14 @@ namespace DevServerControl
             else
             {
                 //free
-                AppendText(tbx_log, $"Port {port} is free!", 10, Color.Black, false);
+                try
+                {
+                    AppendText(tbx_log, $"Port {port} is free!", 10, Color.Black, false);
+                }
+                catch (Exception)
+                {
+                    // ignored
+                }
             }
         }
 

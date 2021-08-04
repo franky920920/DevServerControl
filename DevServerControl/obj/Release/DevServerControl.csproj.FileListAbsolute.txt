@@ -20,3 +20,15 @@ C:\Projects\wamp_control\DevServerControl\obj\Release\DevServerControl.csproj.Ge
 C:\Projects\wamp_control\DevServerControl\obj\Release\DevServerControl.csproj.CoreCompileInputs.cache
 C:\Projects\wamp_control\DevServerControl\obj\Release\DevServerControl.exe
 C:\Projects\wamp_control\DevServerControl\obj\Release\DevServerControl.pdb
+C:\Projects\c.devservercontrol\DevServerControl\bin\Release\DevServerControl.exe.config
+C:\Projects\c.devservercontrol\DevServerControl\bin\Release\DevServerControl.exe
+C:\Projects\c.devservercontrol\DevServerControl\bin\Release\DevServerControl.pdb
+C:\Projects\c.devservercontrol\DevServerControl\obj\Release\DevServerControl.csprojAssemblyReference.cache
+C:\Projects\c.devservercontrol\DevServerControl\obj\Release\DevServerControl.Form1.resources
+C:\Projects\c.devservercontrol\DevServerControl\obj\Release\DevServerControl.HostFile.resources
+C:\Projects\c.devservercontrol\DevServerControl\obj\Release\DevServerControl.Properties.Resources.resources
+C:\Projects\c.devservercontrol\DevServerControl\obj\Release\DevServerControl.VirtualHost.resources
+C:\Projects\c.devservercontrol\DevServerControl\obj\Release\DevServerControl.csproj.GenerateResource.cache
+C:\Projects\c.devservercontrol\DevServerControl\obj\Release\DevServerControl.csproj.CoreCompileInputs.cache
+C:\Projects\c.devservercontrol\DevServerControl\obj\Release\DevServerControl.exe
+C:\Projects\c.devservercontrol\DevServerControl\obj\Release\DevServerControl.pdb

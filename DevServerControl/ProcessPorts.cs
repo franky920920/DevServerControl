@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Text.RegularExpressions;
-
+// Code from: https://www.cheynewallace.com/get-active-ports-and-associated-process-names-in-c/
 namespace DevServerControl
 {
     public static class ProcessPorts
@@ -38,7 +38,8 @@ namespace DevServerControl
                         UseShellExecute = false,
                         RedirectStandardInput = true,
                         RedirectStandardOutput = true,
-                        RedirectStandardError = true
+                        RedirectStandardError = true,
+                        CreateNoWindow = true
                     };
 
                     proc.StartInfo = startInfo;
