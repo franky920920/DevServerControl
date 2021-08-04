@@ -1,4 +1,4 @@
-# WAMP control panel
-The control panel for WAMP
+# DevServerControl
+The control panel for Apache2, PHP and DynamoDB local server.
 
-This allows you to control to control the Apache web server and php.
+This allows you to control to control the Apache web server, php and DynamoDB local server.
