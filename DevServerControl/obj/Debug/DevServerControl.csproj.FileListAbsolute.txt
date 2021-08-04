@@ -32,3 +32,15 @@ P:\wamp_control\DevServerControl\obj\Debug\DevServerControl.csproj.GenerateResou
 P:\wamp_control\DevServerControl\obj\Debug\DevServerControl.csproj.CoreCompileInputs.cache
 P:\wamp_control\DevServerControl\obj\Debug\DevServerControl.exe
 P:\wamp_control\DevServerControl\obj\Debug\DevServerControl.pdb
+C:\Projects\c.devservercontrol\DevServerControl\bin\Debug\DevServerControl.exe.config
+C:\Projects\c.devservercontrol\DevServerControl\bin\Debug\DevServerControl.exe
+C:\Projects\c.devservercontrol\DevServerControl\bin\Debug\DevServerControl.pdb
+C:\Projects\c.devservercontrol\DevServerControl\obj\Debug\DevServerControl.csprojAssemblyReference.cache
+C:\Projects\c.devservercontrol\DevServerControl\obj\Debug\DevServerControl.Form1.resources
+C:\Projects\c.devservercontrol\DevServerControl\obj\Debug\DevServerControl.HostFile.resources
+C:\Projects\c.devservercontrol\DevServerControl\obj\Debug\DevServerControl.Properties.Resources.resources
+C:\Projects\c.devservercontrol\DevServerControl\obj\Debug\DevServerControl.VirtualHost.resources
+C:\Projects\c.devservercontrol\DevServerControl\obj\Debug\DevServerControl.csproj.GenerateResource.cache
+C:\Projects\c.devservercontrol\DevServerControl\obj\Debug\DevServerControl.csproj.CoreCompileInputs.cache
+C:\Projects\c.devservercontrol\DevServerControl\obj\Debug\DevServerControl.exe
+C:\Projects\c.devservercontrol\DevServerControl\obj\Debug\DevServerControl.pdb

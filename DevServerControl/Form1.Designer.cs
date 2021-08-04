@@ -36,9 +36,11 @@ namespace DevServerControl
             this.label1 = new System.Windows.Forms.Label();
             this.chk_port_443 = new System.Windows.Forms.Button();
             this.lbl_apache = new System.Windows.Forms.Label();
+            Form1.btn_apache_toggle = new System.Windows.Forms.Button();
             this.btn_apache_restart = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
+            Form1.tbx_log = new System.Windows.Forms.RichTextBox();
             this.btn_apache_vhost = new System.Windows.Forms.Button();
             this.btn_hosts = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
@@ -84,6 +86,16 @@ namespace DevServerControl
             this.lbl_apache.Size = new System.Drawing.Size(55, 20);
             this.lbl_apache.TabIndex = 5;
             this.lbl_apache.Text = "Apache";
+            // 
+            // btn_apache_toggle
+            // 
+            Form1.btn_apache_toggle.Font = new System.Drawing.Font("Arial Narrow", 12F);
+            Form1.btn_apache_toggle.Location = new System.Drawing.Point(69, 9);
+            Form1.btn_apache_toggle.Name = "btn_apache_toggle";
+            Form1.btn_apache_toggle.Size = new System.Drawing.Size(81, 27);
+            Form1.btn_apache_toggle.TabIndex = 6;
+            Form1.btn_apache_toggle.Text = "start";
+            Form1.btn_apache_toggle.UseVisualStyleBackColor = true;
             // 
             // btn_apache_restart
             // 
@@ -134,6 +146,14 @@ namespace DevServerControl
             this.btn_hosts.UseVisualStyleBackColor = true;
             this.btn_hosts.Click += new System.EventHandler(this.btn_hosts_Click);
             // 
+            // tbx_log
+            // 
+            Form1.tbx_log.Location = new System.Drawing.Point(12, 179);
+            Form1.tbx_log.Name = "tbx_log";
+            Form1.tbx_log.Size = new System.Drawing.Size(555, 227);
+            Form1.tbx_log.TabIndex = 9;
+            Form1.tbx_log.Text = "";
+            //
             // label3
             // 
             this.label3.AutoSize = true;
@@ -160,12 +180,14 @@ namespace DevServerControl
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(579, 418);
+            this.Controls.Add(Form1.tbx_log);
             this.Controls.Add(this.btn_dynamodb_toggle);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.btn_hosts);
             this.Controls.Add(this.btn_apache_vhost);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.btn_apache_restart);
+            this.Controls.Add(Form1.btn_apache_toggle);
             this.Controls.Add(this.lbl_apache);
             this.Controls.Add(this.chk_port_443);
             this.Controls.Add(this.label1);

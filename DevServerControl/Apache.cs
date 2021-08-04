@@ -38,7 +38,7 @@ namespace DevServerControl
             RefreshStatus();
         }
 
-        public static async void Stop()
+        public static async void Stop(bool restart = false)
         {
             if (_sc.Status != ServiceControllerStatus.Stopped)
             {
@@ -49,6 +49,10 @@ namespace DevServerControl
                     await _sc.WaitForStatusAsync(ServiceControllerStatus.Stopped, new TimeSpan(0,0,0,20));
                     Form1.AppendText(Form1.tbx_log, "Service apache stopped", 10, Color.Black, false);
                     Form1.btn_apache_toggle.Text = @"start";
+                    if (restart)
+                    {
+                        await Start();
+                    }
                 }
                 catch (Exception exception)
                 {
@@ -63,14 +67,9 @@ namespace DevServerControl
             RefreshStatus();
         }
 
-        public static async void Restart()
+        public static void Restart()
         {
-            if (Form1.ServiceStatus["apache"] == "running")
-            {
-                Stop();
-            }
-
-            await Start();
+            Stop(true);
         }
 
         public static void RefreshStatus()
