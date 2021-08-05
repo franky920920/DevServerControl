@@ -1,5 +1,5 @@
 # DevServerControl
-The ultra-light weight control panel for Apache2, PHP and DynamoDB local server.
+The ultra-light weight, click-to-run control panel for Apache2, PHP and DynamoDB local server.
 
 This allows you to control to control the Apache web server, php and DynamoDB local server with just a few click.
 
