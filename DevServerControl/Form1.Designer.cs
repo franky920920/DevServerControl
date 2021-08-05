@@ -45,6 +45,7 @@ namespace DevServerControl
             this.btn_hosts = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.btn_dynamodb_toggle = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // chk_port_80
@@ -119,7 +120,7 @@ namespace DevServerControl
             // 
             // notifyIcon1
             // 
-            this.notifyIcon1.Icon = ((System.Drawing.Icon) (resources.GetObject("notifyIcon1.Icon")));
+            this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
             this.notifyIcon1.Text = "DevServerControl";
             this.notifyIcon1.Visible = true;
             this.notifyIcon1.DoubleClick += new System.EventHandler(this.notifyIcon1_DoubleClick);
@@ -175,12 +176,23 @@ namespace DevServerControl
             this.btn_dynamodb_toggle.UseVisualStyleBackColor = true;
             this.btn_dynamodb_toggle.Click += new System.EventHandler(this.btn_dynamodb_toggle_Click);
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Arial Narrow", 12F);
+            this.label4.Location = new System.Drawing.Point(455, 12);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(92, 20);
+            this.label4.TabIndex = 15;
+            this.label4.Text = "Version: 2.1.1";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(579, 418);
             this.Controls.Add(Form1.tbx_log);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.btn_dynamodb_toggle);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.btn_hosts);
@@ -199,6 +211,8 @@ namespace DevServerControl
             this.ResumeLayout(false);
             this.PerformLayout();
         }
+
+        private System.Windows.Forms.Label label4;
 
         private System.Windows.Forms.Button btn_dynamodb_toggle;
 
