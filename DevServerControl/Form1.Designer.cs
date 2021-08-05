@@ -120,7 +120,7 @@ namespace DevServerControl
             // notifyIcon1
             // 
             this.notifyIcon1.Icon = ((System.Drawing.Icon) (resources.GetObject("notifyIcon1.Icon")));
-            this.notifyIcon1.Text = "WAMP manger";
+            this.notifyIcon1.Text = "DevServerControl";
             this.notifyIcon1.Visible = true;
             this.notifyIcon1.DoubleClick += new System.EventHandler(this.notifyIcon1_DoubleClick);
             // 
@@ -193,7 +193,7 @@ namespace DevServerControl
             this.Controls.Add(this.label1);
             this.Controls.Add(this.chk_port_80);
             this.Name = "Form1";
-            this.Text = "WAMP manger";
+            this.Text = "DevServerControl";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.SizeChanged += new System.EventHandler(this.Form1_SizeChanged);
             this.ResumeLayout(false);
